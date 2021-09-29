@@ -1,5 +1,5 @@
-import { Button } from '@chakra-ui/button';
 import React from 'react';
+import { Button } from '@chakra-ui/button';
 import { PropsType } from './type';
 
 const Btn: React.VFC<PropsType> = (props) => {
