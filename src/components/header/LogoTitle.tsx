@@ -20,7 +20,7 @@ const LogoTitle: React.VFC = () => {
 				<Text ml='1' as='h1' fontSize='xl' fontWeight='extrabold'>
 					B.R.A
 				</Text>
-				<Text ml='3' fontSize='xs' color='blackAlpha.500'>
+				<Text ml='3' fontSize='xs'>
 					書籍レビューアプリ
 				</Text>
 			</Link>
