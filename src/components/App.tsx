@@ -7,6 +7,7 @@ import { Container } from '@chakra-ui/react';
 import Header from './header';
 import Top from '../components/Pages/Top';
 import SignUp from '../components/Pages/SignUp';
+import Login from './Pages/Login';
 
 const App: React.VFC = () => {
 	return (
@@ -18,6 +19,7 @@ const App: React.VFC = () => {
 					<Switch>
 						<Route exact path='/' component={Top} />
 						<Route path='/signup' component={SignUp} />
+						<Route path='/login' component={Login} />
 					</Switch>
 				</main>
 			</Container>
