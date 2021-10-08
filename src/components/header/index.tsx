@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@chakra-ui/layout';
 import { Link, useLocation } from 'react-router-dom';
+
 import Btn from '../Button';
 import LogoTitle from './LogoTitle';
 
@@ -10,12 +11,10 @@ const Header: React.VFC = () => {
 	return (
 		<header>
 			<Box
-				style={{
-					marginTop: '12px',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-				}}>
+				marginTop='12px'
+				display='flex'
+				alignItems='center'
+				justifyContent='space-between'>
 				<LogoTitle />
 				{location.pathname !== '/signup' ? (
 					location.pathname !== '/login' ? (
