@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import InputForm from '../Form/InputForm';
+import SignInForm from '../Form/SignInForm';
 
 const Login: React.VFC = () => {
 	return (
@@ -18,7 +18,7 @@ const Login: React.VFC = () => {
 			</Text>
 
 			{/* フォーム */}
-			<InputForm text='ログイン' />
+			<SignInForm />
 
 			<Link to='/signup'>
 				<Text mt='2' fontSize='sm' color='blue.400'>
