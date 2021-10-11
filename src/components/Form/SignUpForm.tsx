@@ -9,13 +9,12 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { SignUpType } from './type';
+import { useAuth } from '../../hooks/useAuth';
+
 import Btn from '../Button';
-import axios from 'axios';
-import { useHistory } from 'react-router';
 
 const SignUpForm: React.VFC = () => {
-	const history = useHistory();
-
+	const { signup, isLoading } = useAuth();
 	const {
 		register,
 		handleSubmit,
@@ -24,32 +23,10 @@ const SignUpForm: React.VFC = () => {
 	} = useForm({ mode: 'onBlur' });
 
 	const onSubmit = (data: SignUpType) => {
-		axios
-			.post(
-				'https://api-for-missions-and-railways.herokuapp.com/users',
-				{
-					name: data.name,
-					email: data.email,
-					password: data.password,
-				},
-				{
-					headers: { 'Content-Type': 'application/json' },
-				}
-			)
-			.then((res) => {
-				console.log(res);
-				if (res.status === 200) {
-					alert('ユーザー登録が完了しました');
-					history.push('/');
-				} else if (res.status === 500) {
-					alert('サーバーで問題が起きたようです');
-					reset();
-				} else {
-					alert('ユーザー登録に失敗しました');
-				}
-			})
-			.catch((err) => console.log(err));
+		signup({ ...data });
+		reset();
 	};
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormControl isInvalid={errors.email || errors.password || errors.name}>
@@ -102,6 +79,7 @@ const SignUpForm: React.VFC = () => {
 						colorScheme='blue'
 						size='sm'
 						variant='outline'
+						isLoading={isLoading}
 					/>
 					<FormErrorMessage fontSize='sm' color='red.600'>
 						{errors.name && errors.user_name.message}
