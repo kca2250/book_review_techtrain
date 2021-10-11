@@ -4,4 +4,5 @@ export type PropsType = {
 	size: 'sm' | 'md';
 	colorScheme: 'blue' | 'red';
 	variant: 'outline' | 'ghost';
+	isLoading?: boolean;
 };
