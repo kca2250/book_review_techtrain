@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import { SignUpType } from '../components/Form/type';
+import { SignInType, SignUpType } from '../components/Form/type';
 import { useMessage } from './useMessage';
 
 export const useAuth = () => {
@@ -20,7 +20,6 @@ export const useAuth = () => {
 				password,
 			})
 			.then((res) => {
-				console.log(res);
 				switch (res.status) {
 					case 200:
 						successMessage({ title: 'ユーザーを登録しました' });
@@ -45,5 +44,40 @@ export const useAuth = () => {
 			});
 	};
 
-	return { isLoading, signup };
+	const signin = async (props: SignInType) => {
+		const { email, password } = props;
+		setIsLoading(true);
+
+		await axios
+			.post('https://api-for-missions-and-railways.herokuapp.com/signin', {
+				email,
+				password,
+			})
+			.then((res) => {
+				console.log(res);
+				switch (res.status) {
+					case 200:
+						successMessage({ title: 'ログインが完了しました' });
+						history.push('/');
+						setIsLoading(false);
+						break;
+
+					case 500:
+						warningMessage({ title: 'サーバーで問題が起きました' });
+						setIsLoading(false);
+						break;
+
+					default:
+						errorMessage({ title: 'エラーが発生しました' });
+						setIsLoading(false);
+						break;
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+				setIsLoading(false);
+			});
+	};
+
+	return { isLoading, signup, signin };
 };
