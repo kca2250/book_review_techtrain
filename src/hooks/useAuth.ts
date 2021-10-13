@@ -22,6 +22,7 @@ export const useAuth = () => {
 			.then((res) => {
 				switch (res.status) {
 					case 200:
+						localStorage.setItem('auth_token', res.data.token);
 						successMessage({ title: 'ユーザーを登録しました' });
 						history.push('/');
 						setIsLoading(false);
@@ -57,6 +58,7 @@ export const useAuth = () => {
 				console.log(res);
 				switch (res.status) {
 					case 200:
+						localStorage.setItem('auth_token', res.data.token);
 						successMessage({ title: 'ログインが完了しました' });
 						history.push('/');
 						setIsLoading(false);
