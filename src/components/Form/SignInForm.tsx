@@ -7,29 +7,25 @@ import {
 	Input,
 	SimpleGrid,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { SignInType } from './type';
+import { useAuth } from '../../hooks/useAuth';
 import Btn from '../Button';
 
 const SignInForm: React.VFC = () => {
+	const { isLoading, signin } = useAuth();
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' });
 
 	const onSubmit = (data: SignInType) => {
-		axios
-			.post('https://api-for-missions-and-railways.herokuapp.com/signin', {
-				auth: {
-					email: data.email,
-					password: data.password,
-				},
-			})
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err));
+		signin({ ...data });
+		reset();
 	};
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormControl isInvalid={errors.email || errors.password}>
@@ -72,6 +68,7 @@ const SignInForm: React.VFC = () => {
 						colorScheme='blue'
 						size='sm'
 						variant='outline'
+						isLoading={isLoading}
 					/>
 					<FormErrorMessage fontSize='sm' color='red.600'>
 						{errors.email && errors.email.message}
