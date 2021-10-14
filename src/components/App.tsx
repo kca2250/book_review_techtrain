@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/css/App.css';
-
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Container } from '@chakra-ui/react';
-
+import { authContext } from '../contexts/authContext';
 import Header from '../components/header';
-import Top from './Pages/Top';
-import SignUp from './Pages/SignUp';
-import Login from './Pages/Login';
+import Routing from '../Routes';
 
 const App: React.VFC = () => {
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+	useEffect(() => {
+		const token: string | null = localStorage.getItem('auth_token');
+		token ? setIsAuthenticated(true) : setIsAuthenticated(false);
+	}, [isAuthenticated]);
+
 	return (
 		<BrowserRouter>
-			<Container>
-				<Header />
-				<main style={{ margin: '15px 0px' }}>
-					{/* ルーティング */}
-					<Switch>
-						<Route exact path='/' component={Top} />
-						<Route path='/signup' component={SignUp} />
-						<Route path='/login' component={Login} />
-					</Switch>
-				</main>
-			</Container>
+			<authContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+				<Container>
+					<Header />
+					<main style={{ margin: '15px 0px' }}>
+						<Routing />
+					</main>
+				</Container>
+			</authContext.Provider>
 		</BrowserRouter>
 	);
 };
