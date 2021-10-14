@@ -13,7 +13,8 @@ import { useAuth } from '../../hooks/useAuth';
 import Btn from '../Button';
 
 const SignInForm: React.VFC = () => {
-	const { isLoading, signin } = useAuth();
+	const { isLoading, login } = useAuth();
+
 	const {
 		register,
 		handleSubmit,
@@ -22,7 +23,7 @@ const SignInForm: React.VFC = () => {
 	} = useForm({ mode: 'onBlur' });
 
 	const onSubmit = (data: SignInType) => {
-		signin({ ...data });
+		login({ ...data });
 		reset();
 	};
 

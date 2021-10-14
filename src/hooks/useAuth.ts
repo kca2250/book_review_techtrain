@@ -1,18 +1,16 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useHistory } from 'react-router';
 import { SignInType, SignUpType } from '../components/Form/type';
 import { useMessage } from './useMessage';
 
 export const useAuth = () => {
-	const history = useHistory();
 	const { successMessage, warningMessage, errorMessage } = useMessage();
-
 	const [isLoading, setIsLoading] = useState(false);
 
 	const signup = async (props: SignUpType): Promise<void> => {
 		const { name, email, password } = props;
 		setIsLoading(true);
+
 		await axios
 			.post('https://api-for-missions-and-railways.herokuapp.com/users', {
 				name,
@@ -24,15 +22,12 @@ export const useAuth = () => {
 					case 200:
 						localStorage.setItem('auth_token', res.data.token);
 						successMessage({ title: 'ユーザーを登録しました' });
-						history.push('/');
 						setIsLoading(false);
 						break;
-
 					case 500:
 						warningMessage({ title: 'サーバーで問題が起きました' });
 						setIsLoading(false);
 						break;
-
 					default:
 						errorMessage({ title: 'エラーが発生しました' });
 						setIsLoading(false);
@@ -45,7 +40,7 @@ export const useAuth = () => {
 			});
 	};
 
-	const signin = async (props: SignInType) => {
+	const login = async (props: SignInType): Promise<void> => {
 		const { email, password } = props;
 		setIsLoading(true);
 
@@ -55,20 +50,16 @@ export const useAuth = () => {
 				password,
 			})
 			.then((res) => {
-				console.log(res);
 				switch (res.status) {
 					case 200:
 						localStorage.setItem('auth_token', res.data.token);
-						successMessage({ title: 'ログインが完了しました' });
-						history.push('/');
+						successMessage({ title: 'ログインしました' });
 						setIsLoading(false);
 						break;
-
 					case 500:
 						warningMessage({ title: 'サーバーで問題が起きました' });
 						setIsLoading(false);
 						break;
-
 					default:
 						errorMessage({ title: 'エラーが発生しました' });
 						setIsLoading(false);
@@ -81,5 +72,5 @@ export const useAuth = () => {
 			});
 	};
 
-	return { isLoading, signup, signin };
+	return { isLoading, signup, login };
 };
