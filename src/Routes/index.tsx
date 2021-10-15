@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import { authContext } from '../contexts/authContext';
+import { AuthContext } from '../contexts/Auth/AuthContext';
 
 import Login from '../components/Pages/Login';
 import SignUp from '../components/Pages/SignUp';
 import Top from '../components/Pages/Top';
 
 const Routing: React.VFC = () => {
-	const { isAuthenticated } = useContext(authContext);
+	const { isAuthenticated } = useContext(AuthContext);
 
 	return (
 		<Switch>
