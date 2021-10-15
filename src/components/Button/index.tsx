@@ -3,7 +3,7 @@ import { Button } from '@chakra-ui/button';
 import { PropsType } from './type';
 
 const Btn: React.VFC<PropsType> = (props) => {
-	const { type, text, size, colorScheme, variant, isLoading } = props;
+	const { type, text, size, colorScheme, variant, isLoading, onClick } = props;
 	return (
 		<Button
 			role='button'
@@ -11,7 +11,8 @@ const Btn: React.VFC<PropsType> = (props) => {
 			size={size}
 			colorScheme={colorScheme}
 			variant={variant}
-			isLoading={isLoading}>
+			isLoading={isLoading}
+			onClick={onClick}>
 			{text}
 		</Button>
 	);

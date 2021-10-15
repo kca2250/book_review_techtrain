@@ -5,4 +5,5 @@ export type PropsType = {
 	colorScheme: 'blue' | 'red';
 	variant: 'outline' | 'ghost';
 	isLoading?: boolean;
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
