@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import { SignInType, SignUpType } from '../components/Form/type';
 import { useMessage } from './useMessage';
 
 export const useAuth = () => {
-	const { successMessage, warningMessage, errorMessage } = useMessage();
+	const history = useHistory();
+	const { showMessage } = useMessage();
 	const [isLoading, setIsLoading] = useState(false);
 
 	const signup = async (props: SignUpType): Promise<void> => {
@@ -18,25 +20,16 @@ export const useAuth = () => {
 				password,
 			})
 			.then((res) => {
-				switch (res.status) {
-					case 200:
-						localStorage.setItem('auth_token', res.data.token);
-						successMessage({ title: 'ユーザーを登録しました' });
-						setIsLoading(false);
-						break;
-					case 500:
-						warningMessage({ title: 'サーバーで問題が起きました' });
-						setIsLoading(false);
-						break;
-					default:
-						errorMessage({ title: 'エラーが発生しました' });
-						setIsLoading(false);
-						break;
-				}
+				localStorage.setItem('auth_token', res.data.token);
+				showMessage({ title: 'ユーザーを登録しました', status: 'info' });
 			})
 			.catch((err) => {
 				console.log(err);
+				showMessage({ title: 'エラーが発生しました', status: 'error' });
+			})
+			.finally(() => {
 				setIsLoading(false);
+				history.push('/');
 			});
 	};
 
@@ -50,25 +43,16 @@ export const useAuth = () => {
 				password,
 			})
 			.then((res) => {
-				switch (res.status) {
-					case 200:
-						localStorage.setItem('auth_token', res.data.token);
-						successMessage({ title: 'ログインしました' });
-						setIsLoading(false);
-						break;
-					case 500:
-						warningMessage({ title: 'サーバーで問題が起きました' });
-						setIsLoading(false);
-						break;
-					default:
-						errorMessage({ title: 'エラーが発生しました' });
-						setIsLoading(false);
-						break;
-				}
+				localStorage.setItem('auth_token', res.data.token);
+				showMessage({ title: 'ログインしました', status: 'info' });
 			})
 			.catch((err) => {
 				console.log(err);
+				showMessage({ title: 'エラーが発生しました', status: 'error' });
+			})
+			.finally(() => {
 				setIsLoading(false);
+				history.push('/');
 			});
 	};
 
