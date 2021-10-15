@@ -1,9 +1,10 @@
 import React from 'react';
+import BookList from '../BookList';
 
 const Top: React.VFC = () => {
 	return (
 		<>
-			<p>this page is TOP page.</p>
+			<BookList />
 		</>
 	);
 };
