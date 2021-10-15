@@ -8,7 +8,7 @@ import Routing from '../Routes';
 
 const App: React.VFC = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-	const token: string | null = localStorage.getItem('auth_token');
+	const token = localStorage.getItem('auth_token') as string;
 
 	useEffect(() => {
 		token && setIsAuthenticated(true);
