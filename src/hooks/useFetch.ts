@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { BookType } from '../components/Books/type';
 
 export const useFetch = (url: string, token: string) => {
-	const [apiData, setApiData] = useState<string[] | null>([]);
+	const [apiData, setApiData] = useState<BookType[]>([]);
 	const [error, setError] = useState<unknown>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -15,8 +16,7 @@ export const useFetch = (url: string, token: string) => {
 						Authorization: `Bearer ${token}`,
 					},
 				});
-				const data = await res?.data;
-
+				const data: BookType[] = await res?.data;
 				setApiData(data);
 				setIsLoading(false);
 			} catch (err) {
