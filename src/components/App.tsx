@@ -12,7 +12,6 @@ const App: React.VFC = () => {
 
 	useEffect(() => {
 		token && setIsAuthenticated(true);
-		console.log('render');
 	}, [isAuthenticated, token]);
 
 	return (
