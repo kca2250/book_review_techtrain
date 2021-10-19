@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
 import SignInForm from '../Form/SignInForm';
 
 const Login: React.VFC = () => {
@@ -19,12 +18,6 @@ const Login: React.VFC = () => {
 
 			{/* フォーム */}
 			<SignInForm />
-
-			<Link to='/signup'>
-				<Text mt='2' fontSize='sm' color='blue.400'>
-					新規登録はこちらから
-				</Text>
-			</Link>
 		</Container>
 	);
 };
