@@ -3,7 +3,7 @@ import { Box, Text, Tag, Link, GridItem } from '@chakra-ui/react';
 import { BookType } from '../type';
 
 const BookCard: React.VFC<BookType> = (props) => {
-	const { id, title, detail, review, reviewer, url, isMine } = props;
+	const { index, id, title, detail, review, reviewer, url, isMine } = props;
 
 	return (
 		<GridItem
@@ -13,8 +13,9 @@ const BookCard: React.VFC<BookType> = (props) => {
 			margin='1'
 			colSpan={2}
 			p='5'
-			key={id}>
-			<Box alignItems='baseline' colorScheme={isMine && 'blue.200'} mb='2'>
+			id={id}
+			key={index}>
+			<Box alignItems='baseline' mb='2'>
 				<Link href={url}>
 					<Text fontSize='large' fontWeight='bold' mb='0.5'>
 						{title}
@@ -38,7 +39,8 @@ const BookCard: React.VFC<BookType> = (props) => {
 				whiteSpace='nowrap'>
 				{review}
 			</Text>
-			<Tag>{reviewer}</Tag>
+
+			{!isMine && <Tag>{reviewer}</Tag>}
 		</GridItem>
 	);
 };
