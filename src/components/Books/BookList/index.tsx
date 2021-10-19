@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Progress, Grid } from '@chakra-ui/react';
 
-import { AuthContext } from '../../../contexts/Auth/AuthContext';
 import { useFetch } from '../../../hooks/useFetch';
 import BookCard from '../BookCard';
 
 const BookList: React.VFC = () => {
-	const { token } = useContext(AuthContext);
+	const token = localStorage.getItem('auth_token');
 	const url: string =
 		'https://api-for-missions-and-railways.herokuapp.com/books';
 
@@ -16,9 +15,10 @@ const BookList: React.VFC = () => {
 		<>
 			{isLoading && <Progress size='xs' isIndeterminate />}
 			<Grid overflow='hidden' templateColumns='repeat(4, 1fr)'>
-				{apiData?.map((data) => {
+				{apiData.map((data, index) => {
 					return (
 						<BookCard
+							key={index}
 							id={data.id}
 							title={data.title}
 							detail={data.detail}
