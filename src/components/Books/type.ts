@@ -1,5 +1,6 @@
 export type BookType = {
-	id: string;
+	index?: number;
+	readonly id: string;
 	title: string;
 	detail: string;
 	url: string;
