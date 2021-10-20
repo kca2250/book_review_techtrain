@@ -31,6 +31,7 @@ const Header: React.VFC<{ userName: string }> = (props) => {
 						size='sm'
 						colorScheme='blue'
 						variant='ghost'
+						onClick={() => history.push('/profile')}
 					/>
 				)}
 
