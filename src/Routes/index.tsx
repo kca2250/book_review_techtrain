@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import Login from '../components/Pages/Login';
 import SignUp from '../components/Pages/SignUp';
 import Top from '../components/Pages/Top';
+import User from '../components/Pages/User';
 import { AuthContext } from '../contexts/Auth/AuthContext';
 
 const Routing: React.VFC = () => {
@@ -18,6 +19,9 @@ const Routing: React.VFC = () => {
 			</Route>
 			<Route path='/signup'>
 				{isAuthenticated !== true ? <SignUp /> : <Redirect push to='/' />}
+			</Route>
+			<Route path='/profile'>
+				{isAuthenticated === true ? <User /> : <Redirect push to='/' />}
 			</Route>
 		</Switch>
 	);
