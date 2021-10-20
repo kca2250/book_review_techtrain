@@ -8,3 +8,7 @@ export type SignUpType = {
 	email: string;
 	password: string;
 };
+
+export type EditUserType = {
+	name: string;
+};
