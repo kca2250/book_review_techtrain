@@ -10,7 +10,7 @@ export const useEdit = () => {
 	const editUser = async (name: string) => {
 		setIsLoading(true);
 
-		const res = await axios.put(
+		await axios.put(
 			'https://api-for-missions-and-railways.herokuapp.com/users',
 			{
 				name,
@@ -23,7 +23,6 @@ export const useEdit = () => {
 		);
 
 		try {
-			console.log(res);
 			setIsLoading(false);
 			showMessage({
 				title: `ユーザー名を ${name} に変更しました`,

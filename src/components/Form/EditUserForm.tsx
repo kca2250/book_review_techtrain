@@ -30,7 +30,6 @@ const EditUserForm: React.VFC = () => {
 	useEffect(() => {
 		fetchUserData();
 	}, [fetchUserData]);
-	console.log(userName);
 
 	return (
 		<>
