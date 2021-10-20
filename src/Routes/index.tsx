@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
+import { AuthContext } from '../contexts/Auth/AuthContext';
 
 import Login from '../components/Pages/Login';
 import SignUp from '../components/Pages/SignUp';
 import Top from '../components/Pages/Top';
 import User from '../components/Pages/User';
-import { AuthContext } from '../contexts/Auth/AuthContext';
+import BookDetail from '../components/Pages/BookDetail';
 
 const Routing: React.VFC = () => {
 	const { isAuthenticated } = useContext(AuthContext);
+
 	return (
 		<Switch>
 			<Route exact path='/'>
@@ -22,6 +24,10 @@ const Routing: React.VFC = () => {
 			</Route>
 			<Route path='/profile'>
 				{isAuthenticated === true ? <User /> : <Redirect push to='/' />}
+			</Route>
+
+			<Route path='/detail/:id'>
+				{isAuthenticated === true ? <BookDetail /> : <Redirect push to='/' />}
 			</Route>
 		</Switch>
 	);
