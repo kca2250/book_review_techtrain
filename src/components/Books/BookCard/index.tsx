@@ -1,12 +1,15 @@
 import React from 'react';
-import { Box, Text, Tag, Link, GridItem } from '@chakra-ui/react';
+import { Box, Text, Tag, GridItem } from '@chakra-ui/react';
 import { BookType } from '../type';
+import { useHistory } from 'react-router';
 
 const BookCard: React.VFC<BookType> = (props) => {
-	const { index, id, title, detail, review, reviewer, url, isMine } = props;
+	const history = useHistory();
+	const { index, id, title, detail, review, reviewer, isMine } = props;
 
 	return (
 		<GridItem
+			onClick={() => history.push(`/detail/${id}`)}
 			h='auto'
 			border='1px solid #f0f0f0'
 			borderRadius='md'
@@ -16,11 +19,9 @@ const BookCard: React.VFC<BookType> = (props) => {
 			id={id}
 			key={index}>
 			<Box alignItems='baseline' mb='2'>
-				<Link href={url}>
-					<Text fontSize='large' fontWeight='bold' mb='0.5'>
-						{title}
-					</Text>
-				</Link>
+				<Text fontSize='large' fontWeight='bold' mb='0.5'>
+					{title}
+				</Text>
 				<Text
 					overflow='hidden'
 					textOverflow='ellipsis'
