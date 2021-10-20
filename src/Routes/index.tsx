@@ -7,6 +7,7 @@ import SignUp from '../components/Pages/SignUp';
 import Top from '../components/Pages/Top';
 import User from '../components/Pages/User';
 import BookDetail from '../components/Pages/BookDetail';
+import CreateReview from '../components/Pages/CreateReview';
 
 const Routing: React.VFC = () => {
 	const { isAuthenticated } = useContext(AuthContext);
@@ -29,6 +30,8 @@ const Routing: React.VFC = () => {
 			<Route path='/detail/:id'>
 				{isAuthenticated === true ? <BookDetail /> : <Redirect push to='/' />}
 			</Route>
+
+			<Route path='/new' component={CreateReview} />
 		</Switch>
 	);
 };
