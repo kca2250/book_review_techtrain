@@ -82,7 +82,7 @@ const SignUpForm: React.VFC = () => {
 						isLoading={isLoading}
 					/>
 					<FormErrorMessage fontSize='sm' color='red.600'>
-						{errors.name && errors.user_name.message}
+						{errors.name && errors.name.message}
 						<br />
 						{errors.email && errors.email.message}
 						<br />
