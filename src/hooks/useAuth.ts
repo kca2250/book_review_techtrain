@@ -38,7 +38,6 @@ export const useAuth = () => {
 		try {
 			localStorage.setItem('auth_token', res.data.token);
 			showMessage({ title: 'ユーザーを登録しました', status: 'info' });
-			return;
 		} catch (error) {
 			console.log(error);
 			showMessage({ title: 'エラーが発生しました', status: 'error' });
@@ -61,7 +60,6 @@ export const useAuth = () => {
 		try {
 			localStorage.setItem('auth_token', res.data.token);
 			showMessage({ title: 'ログインしました', status: 'info' });
-			return;
 		} catch (error) {
 			console.log(error);
 			showMessage({ title: 'エラーが発生しました', status: 'error' });
@@ -70,5 +68,13 @@ export const useAuth = () => {
 		}
 	};
 
-	return { isLoading, userName, fetchUserData, signup, login };
+	const logout = () => {
+		const result: boolean = window.confirm('ログアウトしますか？');
+		if (result) {
+			localStorage.removeItem('auth_token');
+			showMessage({ title: '処理が完了しました', status: 'info' });
+		}
+	};
+
+	return { isLoading, userName, fetchUserData, signup, login, logout };
 };
