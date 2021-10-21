@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Text, Link, Progress } from '@chakra-ui/react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { BookType } from '../Books/type';
+import Btn from '../Button';
 
 const BookDetails: React.VFC = () => {
+	const history = useHistory();
 	const [apiData, setApiData] = useState<BookType>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const params = useParams<{ id: string }>();
@@ -29,14 +31,17 @@ const BookDetails: React.VFC = () => {
 		fetchData();
 	}, [params.id, token]);
 
-	console.log(apiData?.isMine);
 	return (
 		<>
 			{isLoading ? (
 				<Progress size='xs' isIndeterminate />
 			) : (
 				<>
-					<Text as='h2' fontWeight='bold'>
+					<Text
+						paddingLeft='5px'
+						borderLeft='6px solid #6088c4 '
+						as='h2'
+						fontWeight='bold'>
 						レビュー書籍詳細
 					</Text>
 					<Box mt='5' as='article' role='article'>
@@ -50,7 +55,18 @@ const BookDetails: React.VFC = () => {
 									{apiData?.title}
 								</Text>
 							</Link>
-							<Text color='blackAlpha.700'>{apiData?.reviewer}</Text>
+							{apiData?.isMine !== true ? (
+								<Text color='blackAlpha.700'>{apiData?.reviewer}</Text>
+							) : (
+								<Btn
+									text='編集'
+									size='sm'
+									type='button'
+									colorScheme='blue'
+									variant='outline'
+									onClick={() => history.push(`/edit/${params.id}`)}
+								/>
+							)}
 						</Box>
 						<Text color='blackAlpha.500'>{`書籍詳細  :  ${apiData?.detail}`}</Text>
 						<Box mt='4' p='5' backgroundColor='whitesmoke' borderRadius='sm'>
