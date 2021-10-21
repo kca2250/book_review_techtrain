@@ -8,7 +8,7 @@ import {
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CreateReveiwType } from '../Books/type';
+import { BookType } from '../Books/type';
 import Btn from '../Button';
 
 const CreateReviewForm: React.VFC = () => {
@@ -21,12 +21,12 @@ const CreateReviewForm: React.VFC = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' });
 
-	const onSubmit = (data: CreateReveiwType) => {
+	const onSubmit = (data: BookType) => {
 		postBook(data);
 		reset();
 	};
 
-	const postBook = async (props: CreateReveiwType) => {
+	const postBook = async (props: BookType) => {
 		setIsLoading(true);
 		const { title, url, detail, review } = props;
 		await axios
