@@ -8,6 +8,7 @@ import Top from '../components/Pages/Top';
 import User from '../components/Pages/User';
 import BookDetail from '../components/Pages/BookDetail';
 import CreateReview from '../components/Pages/CreateReview';
+import EditReviewForm from '../components/Form/EditReviewForm';
 
 const Routing: React.VFC = () => {
 	const { isAuthenticated } = useContext(AuthContext);
@@ -32,6 +33,7 @@ const Routing: React.VFC = () => {
 			</Route>
 
 			<Route path='/new' component={CreateReview} />
+			<Route path='/edit/:id' component={EditReviewForm} />
 		</Switch>
 	);
 };
