@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
 import { Box } from '@chakra-ui/layout';
-
+import { useHistory, useLocation } from 'react-router';
+import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { UserNameContext } from '../../contexts/UserNameContext';
 import LogoTitle from './LogoTitle';
 import Btn from '../Button';
-import { AuthContext } from '../../contexts/Auth/AuthContext';
-import { useHistory, useLocation } from 'react-router';
-
-const Header: React.VFC<{ userName: string }> = (props) => {
+const Header: React.VFC = () => {
 	const history = useHistory();
 	const location = useLocation();
 	const { isAuthenticated } = useContext(AuthContext);
-	const { userName } = props;
+	const { userName } = useContext(UserNameContext);
 
 	const signupPath = location.pathname === '/signup';
 	const loginPath = location.pathname === '/login';
