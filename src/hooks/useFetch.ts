@@ -1,13 +1,15 @@
 import axios from 'axios';
+import * as H from 'history';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { BookType } from '../components/Books/type';
 
-export const useFetch = (url: string, token: string | null) => {
-	const history = useHistory();
+export const useFetch = (url: string) => {
+	const history: H.History = useHistory();
 	const [apiData, setApiData] = useState<BookType[]>([]);
 	const [error, setError] = useState<unknown>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const token = localStorage.getItem('auth_token');
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -21,10 +23,15 @@ export const useFetch = (url: string, token: string | null) => {
 				const data: BookType[] = await res.data;
 				setApiData(data);
 				setIsLoading(false);
-			} catch (err) {
-				setError(err);
+				return;
+			} catch (error) {
+				setError(error);
 				setIsLoading(false);
-				history.push('/login');
+				if (axios.isAxiosError(error) && error.response?.status === 401) {
+					console.log('認証がされていません');
+					localStorage.removeItem('auth_token');
+					return;
+				}
 			}
 		};
 

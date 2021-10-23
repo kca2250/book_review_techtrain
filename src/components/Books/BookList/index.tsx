@@ -7,11 +7,10 @@ import { useHistory } from 'react-router';
 
 const BookList: React.VFC = () => {
 	const history = useHistory();
-	const token = localStorage.getItem('auth_token');
 	const url: string =
 		'https://api-for-missions-and-railways.herokuapp.com/books';
 
-	const { apiData, isLoading } = useFetch(url, token);
+	const { apiData, isLoading } = useFetch(url);
 
 	return (
 		<>
