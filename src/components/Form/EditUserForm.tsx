@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 import {
 	Box,
 	FormControl,
@@ -10,11 +10,12 @@ import { useForm } from 'react-hook-form';
 import { EditUserType } from './type';
 import Btn from '../Button';
 import { useEdit } from '../../hooks/useEdit';
-import { useAuth } from '../../hooks/useAuth';
+import { UserNameContext } from '../../contexts/UserNameContext';
 
 const EditUserForm: React.VFC = () => {
 	const { isLoading, editUser } = useEdit();
-	const { fetchUserData, userName } = useAuth();
+	const { userName } = useContext(UserNameContext);
+
 	const {
 		register,
 		handleSubmit,
@@ -26,10 +27,6 @@ const EditUserForm: React.VFC = () => {
 		editUser(data.name);
 		reset();
 	};
-
-	useEffect(() => {
-		fetchUserData();
-	}, [fetchUserData]);
 
 	return (
 		<>
