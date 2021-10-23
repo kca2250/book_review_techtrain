@@ -6,22 +6,6 @@ import { useMessage } from './useMessage';
 export const useAuth = () => {
 	const { showMessage } = useMessage();
 	const [isLoading, setIsLoading] = useState(false);
-	const [userName, setUserName] = useState<string>('');
-	const token = localStorage.getItem('auth_token');
-
-	const fetchUserData = async () => {
-		setIsLoading(true);
-		await axios
-			.get('https://api-for-missions-and-railways.herokuapp.com/users', {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((res) => {
-				setUserName(res.data.name);
-			})
-			.catch((err) => console.log(err));
-	};
 
 	const signup = async (props: SignUpType): Promise<void> => {
 		const { name, email, password } = props;
@@ -76,5 +60,5 @@ export const useAuth = () => {
 		}
 	};
 
-	return { isLoading, userName, fetchUserData, signup, login, logout };
+	return { isLoading, signup, login, logout };
 };
