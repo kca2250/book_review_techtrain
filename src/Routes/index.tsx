@@ -16,20 +16,20 @@ const Routing: React.VFC = () => {
 	return (
 		<Switch>
 			<Route exact path='/'>
-				{isAuthenticated === true ? <Top /> : <Redirect push to='/signup' />}
+				{isAuthenticated ? <Top /> : <Redirect push to='/signup' />}
 			</Route>
 			<Route path='/login'>
-				{isAuthenticated !== true ? <Login /> : <Redirect push to='/' />}
+				{!isAuthenticated ? <Login /> : <Redirect push to='/' />}
 			</Route>
 			<Route path='/signup'>
-				{isAuthenticated !== true ? <SignUp /> : <Redirect push to='/' />}
+				{!isAuthenticated ? <SignUp /> : <Redirect push to='/' />}
 			</Route>
 			<Route path='/profile'>
-				{isAuthenticated === true ? <User /> : <Redirect push to='/' />}
+				{isAuthenticated ? <User /> : <Redirect push to='/' />}
 			</Route>
 
 			<Route path='/detail/:id'>
-				{isAuthenticated === true ? <BookDetail /> : <Redirect push to='/' />}
+				{isAuthenticated ? <BookDetail /> : <Redirect push to='/' />}
 			</Route>
 
 			<Route path='/new' component={CreateReview} />
