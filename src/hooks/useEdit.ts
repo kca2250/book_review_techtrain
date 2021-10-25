@@ -1,12 +1,13 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ReviewType } from '../components/Books/type';
+import { AuthContext } from '../contexts/Auth/AuthContext';
 import { useMessage } from './useMessage';
 
 export const useEdit = () => {
 	const { showMessage } = useMessage();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const token = localStorage.getItem('auth_token');
+	const { authToken } = useContext(AuthContext);
 
 	const editUser = async (name: string) => {
 		setIsLoading(true);
@@ -19,7 +20,7 @@ export const useEdit = () => {
 				},
 				{
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${authToken}`,
 					},
 				}
 			)
@@ -29,7 +30,6 @@ export const useEdit = () => {
 					status: 'info',
 				});
 			})
-
 			.catch((error) => {
 				console.log(error);
 				showMessage({ title: 'エラーが発生しました', status: 'error' });
@@ -53,7 +53,7 @@ export const useEdit = () => {
 				},
 				{
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${authToken}`,
 					},
 				}
 			)

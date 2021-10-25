@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Text, Link, Progress } from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router';
 import { BookType } from '../Books/type';
 import Btn from '../Button';
+import { AuthContext } from '../../contexts/Auth/AuthContext';
 
 const BookDetails: React.VFC = () => {
 	const history = useHistory();
+	const { authToken } = useContext(AuthContext);
 	const [apiData, setApiData] = useState<BookType>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const params = useParams<{ id: string }>();
-	const token = localStorage.getItem('auth_token');
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -20,7 +21,7 @@ const BookDetails: React.VFC = () => {
 					`https://api-for-missions-and-railways.herokuapp.com/books/${params.id}`,
 					{
 						headers: {
-							Authorization: `Bearer ${token}`,
+							Authorization: `Bearer ${authToken}`,
 						},
 					}
 				)
@@ -29,7 +30,7 @@ const BookDetails: React.VFC = () => {
 				.finally(() => setIsLoading(false));
 		};
 		fetchData();
-	}, [params.id, token]);
+	}, [authToken, params.id]);
 
 	return (
 		<>
