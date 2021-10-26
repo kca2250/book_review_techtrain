@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, Tag, GridItem } from '@chakra-ui/react';
-import { BookType } from '../type';
+import { BookType } from './type';
 import { useHistory } from 'react-router';
 
 const BookCard: React.VFC<BookType> = (props) => {

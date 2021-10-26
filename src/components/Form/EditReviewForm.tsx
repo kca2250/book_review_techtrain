@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Box, SimpleGrid } from '@chakra-ui/layout';
 import { FormErrorMessage, Input, Progress } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { BookType, ReviewType } from '../Books/type';
+import { BookType, ReviewType } from '../BookCard/type';
 import Btn from '../Button';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router';
 import { useEdit } from '../../hooks/useEdit';
+import { AuthContext } from '../../contexts/Auth/AuthContext';
 
 const EditReviewForm: React.VFC = () => {
 	const history = useHistory();
 	const params = useParams<{ id: string }>();
-	const token = localStorage.getItem('auth_token');
+	const { authToken } = useContext(AuthContext);
 	const { editReview } = useEdit();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [apiData, setApiData] = useState<BookType>();
@@ -44,7 +44,7 @@ const EditReviewForm: React.VFC = () => {
 					`https://api-for-missions-and-railways.herokuapp.com/books/${params.id}`,
 					{
 						headers: {
-							Authorization: `Bearer ${token}`,
+							Authorization: `Bearer ${authToken}`,
 						},
 					}
 				)
@@ -53,7 +53,7 @@ const EditReviewForm: React.VFC = () => {
 				.finally(() => setIsLoading(false));
 		};
 		fetchData();
-	}, [params.id, token]);
+	}, [params.id, authToken]);
 
 	return (
 		<>
@@ -123,7 +123,7 @@ const EditReviewForm: React.VFC = () => {
 							</Box>
 							<Btn
 								type='submit'
-								text='投稿する'
+								text='編集する'
 								colorScheme='blue'
 								size='sm'
 								variant='outline'

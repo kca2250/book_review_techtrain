@@ -8,15 +8,16 @@ import {
 	SimpleGrid,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { SignUpType } from './type';
+import { LoginType } from './type';
 import { useAuth } from '../../hooks/useAuth';
-import { Redirect } from 'react-router';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import Btn from '../Button';
+import { Redirect } from 'react-router';
 
-const SignUpForm: React.VFC = () => {
+const LoginForm: React.VFC = () => {
 	const { isAuthenticated } = useContext(AuthContext);
-	const { signup, isLoading } = useAuth();
+	const { isLoading, login } = useAuth();
+
 	const {
 		register,
 		handleSubmit,
@@ -24,8 +25,8 @@ const SignUpForm: React.VFC = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' });
 
-	const onSubmit = (data: SignUpType) => {
-		signup({ ...data });
+	const onSubmit = (data: LoginType) => {
+		login({ ...data });
 		reset();
 	};
 
@@ -35,31 +36,20 @@ const SignUpForm: React.VFC = () => {
 				<Redirect to='/' />
 			) : (
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<FormControl
-						isInvalid={errors.email || errors.password || errors.name}>
+					<FormControl isInvalid={errors.email || errors.password}>
 						<FormLabel
 							mb='5'
 							role='contentinfo'
 							fontSize='sm'
 							fontWeight='bold'>
-							以下のフォームすべてに入力してください
+							メールアドレスとパスワードを入力してください
 						</FormLabel>
 						<SimpleGrid role='grid' spacing='5'>
 							<Input
 								role='form'
-								id='name'
-								autoComplete='off'
-								variant='filled'
-								placeholder='ユーザーネーム'
-								{...register('name', {
-									required: 'ユーザーネームを入力してください',
-								})}
-							/>
-							<Input
-								role='form'
 								id='email'
-								autoComplete='off'
 								variant='filled'
+								autoComplete='off'
 								placeholder='メールアドレス'
 								{...register('email', {
 									required: 'メールアドレスを入力してください',
@@ -89,15 +79,13 @@ const SignUpForm: React.VFC = () => {
 
 							<Btn
 								type='submit'
-								text='新規登録'
+								text='ログイン'
 								colorScheme='blue'
 								size='sm'
 								variant='outline'
 								isLoading={isLoading}
 							/>
 							<FormErrorMessage fontSize='sm' color='red.600'>
-								{errors.name && errors.name.message}
-								<br />
 								{errors.email && errors.email.message}
 								<br />
 								{errors.password && errors.password.message}
@@ -111,4 +99,4 @@ const SignUpForm: React.VFC = () => {
 	);
 };
 
-export default SignUpForm;
+export default LoginForm;

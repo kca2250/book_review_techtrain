@@ -1,12 +1,15 @@
 import axios from 'axios';
-import { useState } from 'react';
-import { ReviewType } from '../components/Books/type';
+import { useContext, useState } from 'react';
+import { ReviewType } from '../components/BookCard/type';
+import { AuthContext } from '../contexts/Auth/AuthContext';
+import { UserNameContext } from '../contexts/UserNameContext';
 import { useMessage } from './useMessage';
 
 export const useEdit = () => {
+	const { setUserName } = useContext(UserNameContext);
 	const { showMessage } = useMessage();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const token = localStorage.getItem('auth_token');
+	const { authToken } = useContext(AuthContext);
 
 	const editUser = async (name: string) => {
 		setIsLoading(true);
@@ -19,7 +22,7 @@ export const useEdit = () => {
 				},
 				{
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${authToken}`,
 					},
 				}
 			)
@@ -28,8 +31,8 @@ export const useEdit = () => {
 					title: `ユーザー名を ${name} に変更しました`,
 					status: 'info',
 				});
+				setUserName(name);
 			})
-
 			.catch((error) => {
 				console.log(error);
 				showMessage({ title: 'エラーが発生しました', status: 'error' });
@@ -53,7 +56,7 @@ export const useEdit = () => {
 				},
 				{
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${authToken}`,
 					},
 				}
 			)
