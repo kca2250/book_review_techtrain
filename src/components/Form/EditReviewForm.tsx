@@ -123,7 +123,7 @@ const EditReviewForm: React.VFC = () => {
 							</Box>
 							<Btn
 								type='submit'
-								text='投稿する'
+								text='編集する'
 								colorScheme='blue'
 								size='sm'
 								variant='outline'
