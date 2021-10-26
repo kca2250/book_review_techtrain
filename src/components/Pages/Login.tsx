@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Text } from '@chakra-ui/react';
-import SignInForm from '../Form/SignInForm';
+import LoginForm from '../Form/LoginForm';
 
 const Login: React.VFC = () => {
 	return (
@@ -17,7 +17,7 @@ const Login: React.VFC = () => {
 			</Text>
 
 			{/* フォーム */}
-			<SignInForm />
+			<LoginForm />
 		</Container>
 	);
 };

@@ -8,11 +8,11 @@ import {
 	SimpleGrid,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { SignInType } from './type';
+import { LoginType } from './type';
 import { useAuth } from '../../hooks/useAuth';
 import Btn from '../Button';
 
-const SignInForm: React.VFC = () => {
+const LoginForm: React.VFC = () => {
 	const { isLoading, login } = useAuth();
 
 	const {
@@ -22,7 +22,7 @@ const SignInForm: React.VFC = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' });
 
-	const onSubmit = (data: SignInType) => {
+	const onSubmit = (data: LoginType) => {
 		login({ ...data });
 		reset();
 	};
@@ -83,4 +83,4 @@ const SignInForm: React.VFC = () => {
 	);
 };
 
-export default SignInForm;
+export default LoginForm;
