@@ -1,16 +1,15 @@
 import React from 'react';
 import { Progress, Grid } from '@chakra-ui/react';
-import { useFetch } from '../../../hooks/useFetch';
+import { useFetch } from '../../hooks/useFetch';
 import BookCard from '../BookCard';
-import Btn from '../../Button';
+import Btn from '../Button';
 import { useHistory } from 'react-router';
 
 const BookList: React.VFC = () => {
 	const history = useHistory();
-	const url: string =
-		'https://api-for-missions-and-railways.herokuapp.com/books';
-
-	const { apiData, isLoading } = useFetch(url);
+	const { apiData, isLoading } = useFetch(
+		'https://api-for-missions-and-railways.herokuapp.com/books'
+	);
 
 	return (
 		<>
