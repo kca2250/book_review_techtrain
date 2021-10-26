@@ -5,15 +5,14 @@ import {
 	Input,
 	SimpleGrid,
 } from '@chakra-ui/react';
-import axios from 'axios';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { BookType } from '../Books/type';
+import { BookType } from '../BookCard/type';
+import { useBook } from '../../hooks/useBook';
 import Btn from '../Button';
 
 const CreateReviewForm: React.VFC = () => {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const token = localStorage.getItem('auth_token');
+	const { isLoading, createPost } = useBook();
 	const {
 		register,
 		handleSubmit,
@@ -22,33 +21,9 @@ const CreateReviewForm: React.VFC = () => {
 	} = useForm({ mode: 'onBlur' });
 
 	const onSubmit = (data: BookType) => {
-		postBook(data);
+		createPost(data);
 		reset();
 	};
-
-	const postBook = async (props: BookType) => {
-		setIsLoading(true);
-		const { title, url, detail, review } = props;
-		await axios
-			.post(
-				'https://api-for-missions-and-railways.herokuapp.com/books',
-				{
-					title,
-					url,
-					detail,
-					review,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			)
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err))
-			.finally(() => setIsLoading(false));
-	};
-
 	return (
 		<>
 			<form onSubmit={handleSubmit(onSubmit)}>
