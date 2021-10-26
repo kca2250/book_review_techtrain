@@ -2,16 +2,24 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Text, Link, Progress } from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router';
-import { BookType } from '../Books/type';
-import Btn from '../Button';
+import { useBook } from '../../hooks/useBook';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { BookType } from '../BookCard/type';
+import Btn from '../Button';
 
 const BookDetails: React.VFC = () => {
 	const history = useHistory();
+	const { deletePost } = useBook();
 	const { authToken } = useContext(AuthContext);
 	const [apiData, setApiData] = useState<BookType>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const params = useParams<{ id: string }>();
+
+	const deleteHandler = () => {
+		const result = window.confirm('投稿を削除しますか？');
+		result && deletePost(params.id);
+		return;
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -59,14 +67,24 @@ const BookDetails: React.VFC = () => {
 							{apiData?.isMine !== true ? (
 								<Text color='blackAlpha.700'>{apiData?.reviewer}</Text>
 							) : (
-								<Btn
-									text='編集'
-									size='sm'
-									type='button'
-									colorScheme='blue'
-									variant='outline'
-									onClick={() => history.push(`/edit/${params.id}`)}
-								/>
+								<Box display='grid' gridGap='4' gridTemplateColumns='auto auto'>
+									<Btn
+										text='編集'
+										size='sm'
+										type='button'
+										colorScheme='blue'
+										variant='outline'
+										onClick={() => history.push(`/edit/${params.id}`)}
+									/>
+									<Btn
+										text='削除'
+										size='sm'
+										type='button'
+										colorScheme='red'
+										variant='outline'
+										onClick={deleteHandler}
+									/>
+								</Box>
 							)}
 						</Box>
 						<Text color='blackAlpha.500'>{`書籍詳細  :  ${apiData?.detail}`}</Text>
