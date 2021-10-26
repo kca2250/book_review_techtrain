@@ -1,4 +1,4 @@
-export type PropsType = {
+export type ButtonType = {
 	type: 'button' | 'submit';
 	text: string;
 	size: 'sm' | 'md';
