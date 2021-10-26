@@ -3,7 +3,7 @@ import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Box, SimpleGrid } from '@chakra-ui/layout';
 import { FormErrorMessage, Input, Progress } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { BookType, ReviewType } from '../Books/type';
+import { BookType, ReviewType } from '../BookCard/type';
 import Btn from '../Button';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router';
