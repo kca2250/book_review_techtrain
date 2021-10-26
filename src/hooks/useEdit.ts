@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { ReviewType } from '../components/Books/type';
+import { ReviewType } from '../components/BookCard/type';
 import { AuthContext } from '../contexts/Auth/AuthContext';
+import { UserNameContext } from '../contexts/UserNameContext';
 import { useMessage } from './useMessage';
 
 export const useEdit = () => {
+	const { setUserName } = useContext(UserNameContext);
 	const { showMessage } = useMessage();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const { authToken } = useContext(AuthContext);
@@ -29,6 +31,7 @@ export const useEdit = () => {
 					title: `ユーザー名を ${name} に変更しました`,
 					status: 'info',
 				});
+				setUserName(name);
 			})
 			.catch((error) => {
 				console.log(error);
