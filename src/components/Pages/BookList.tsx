@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Progress, Grid } from '@chakra-ui/react';
 import { useFetch } from '../../hooks/useFetch';
+import { Redirect, useHistory } from 'react-router';
 import BookCard from '../BookCard';
 import Btn from '../Button';
-import { useHistory } from 'react-router';
+import { AuthContext } from '../../contexts/Auth/AuthContext';
 
 const BookList: React.VFC = () => {
+	const { isAuthenticated } = useContext(AuthContext);
 	const history = useHistory();
 	const { apiData, isLoading } = useFetch(
 		'https://api-for-missions-and-railways.herokuapp.com/books'
@@ -13,6 +15,7 @@ const BookList: React.VFC = () => {
 
 	return (
 		<>
+			{!isAuthenticated && <Redirect to='/signup' />}
 			{isLoading ? (
 				<Progress size='xs' isIndeterminate />
 			) : (
