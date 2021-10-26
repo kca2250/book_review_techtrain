@@ -1,15 +1,15 @@
 import axios from 'axios';
 import * as H from 'history';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { BookType } from '../components/Books/type';
+import { BookType } from '../components/BookCard/type';
+import { AuthContext } from '../contexts/Auth/AuthContext';
 
 export const useFetch = (url: string) => {
 	const history: H.History = useHistory();
 	const [apiData, setApiData] = useState<BookType[]>([]);
-	const [error, setError] = useState<unknown>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const token = localStorage.getItem('auth_token');
+	const { authToken } = useContext(AuthContext);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -17,7 +17,7 @@ export const useFetch = (url: string) => {
 			try {
 				const res = await axios.get(url, {
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${authToken}`,
 					},
 				});
 				const data: BookType[] = await res.data;
@@ -25,18 +25,18 @@ export const useFetch = (url: string) => {
 				setIsLoading(false);
 				return;
 			} catch (error) {
-				setError(error);
 				setIsLoading(false);
 				if (axios.isAxiosError(error) && error.response?.status === 401) {
 					console.log('認証がされていません');
 					localStorage.removeItem('auth_token');
+					history.push('/signup');
 					return;
 				}
 			}
 		};
 
 		fetchData();
-	}, [history, token, url]);
+	}, [authToken, history, url]);
 
-	return { apiData, error, isLoading };
+	return { apiData, isLoading };
 };
