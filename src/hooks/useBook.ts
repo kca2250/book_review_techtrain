@@ -62,6 +62,7 @@ export const useBook = () => {
 					title: `レビュー内容を変更しました`,
 					status: 'info',
 				});
+				history.push(`/edit/${id}`);
 				return;
 			})
 			.catch((error) => {
