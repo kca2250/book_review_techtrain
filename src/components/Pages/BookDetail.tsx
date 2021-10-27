@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Text, Link, Progress } from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router';
-import { useBook } from '../../hooks/useBook';
+import { useBookReview } from '../../hooks/useBookReview';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { BookType } from '../BookCard/type';
 import Btn from '../Button';
 
 const BookDetails: React.VFC = () => {
 	const history = useHistory();
-	const { deletePost } = useBook();
+	const { deleteBookReview } = useBookReview();
 	const { authToken } = useContext(AuthContext);
 	const [apiData, setApiData] = useState<BookType>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const BookDetails: React.VFC = () => {
 
 	const deleteHandler = () => {
 		const result = window.confirm('投稿を削除しますか？');
-		result && deletePost(params.id);
+		result && deleteBookReview(params.id);
 		return;
 	};
 

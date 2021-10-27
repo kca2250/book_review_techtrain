@@ -1,20 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Btn from '../Button';
+import axios from 'axios';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Box, SimpleGrid } from '@chakra-ui/layout';
 import { FormErrorMessage, Input, Progress } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { BookType, ReviewType } from '../BookCard/type';
-import Btn from '../Button';
-import axios from 'axios';
+import { BookType } from '../BookCard/type';
 import { useHistory, useParams } from 'react-router';
-import { useEdit } from '../../hooks/useEdit';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { useBookReview } from '../../hooks/useBookReview';
+import { EditBookReviewType } from './type';
 
 const EditReviewForm: React.VFC = () => {
 	const history = useHistory();
 	const params = useParams<{ id: string }>();
 	const { authToken } = useContext(AuthContext);
-	const { editReview } = useEdit();
+	const { editBookReview } = useBookReview();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [apiData, setApiData] = useState<BookType>();
 	const {
@@ -24,16 +25,16 @@ const EditReviewForm: React.VFC = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' });
 
-	const onSubmit = (data: ReviewType) => {
-		editReview({
+	const onSubmit = (data: EditBookReviewType) => {
+		editBookReview({
 			id: params.id,
 			title: data.title,
-			url: data.url,
 			detail: data.detail,
 			review: data.review,
+			url: data.url,
 		});
+		history.push(`/detail/${params.id}`);
 		reset();
-		history.goBack();
 	};
 
 	useEffect(() => {
