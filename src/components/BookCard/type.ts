@@ -8,11 +8,3 @@ export type BookType = {
 	reviewer: string;
 	readonly isMine: boolean;
 };
-
-export type ReviewType = {
-	id: string;
-	title: string;
-	url: string;
-	detail: string;
-	review: string;
-};

@@ -12,3 +12,11 @@ export type SignUpType = {
 export type EditUserType = {
 	name: string;
 };
+
+export type EditBookReviewType = {
+	id: string;
+	title: string;
+	detail: string;
+	review: string;
+	url: string;
+};

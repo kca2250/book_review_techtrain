@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { ReviewType } from '../components/BookCard/type';
 import { AuthContext } from '../contexts/Auth/AuthContext';
 import { UserNameContext } from '../contexts/UserNameContext';
 import { useMessage } from './useMessage';
@@ -42,38 +41,5 @@ export const useEdit = () => {
 			});
 	};
 
-	const editReview = async ({ id, title, url, detail, review }: ReviewType) => {
-		setIsLoading(true);
-
-		await axios
-			.put(
-				`https://api-for-missions-and-railways.herokuapp.com/books/${id}`,
-				{
-					title,
-					url,
-					detail,
-					review,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${authToken}`,
-					},
-				}
-			)
-			.then((res) => {
-				showMessage({
-					title: `レビュー内容を変更しました`,
-					status: 'info',
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-				showMessage({ title: 'エラーが発生しました', status: 'error' });
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
-	};
-
-	return { isLoading, editUser, editReview };
+	return { isLoading, editUser };
 };

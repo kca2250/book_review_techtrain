@@ -2,16 +2,17 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { BookType } from '../components/BookCard/type';
+import { EditBookReviewType } from '../components/Form/type';
 import { AuthContext } from '../contexts/Auth/AuthContext';
 import { useMessage } from './useMessage';
 
-export const useBook = () => {
+export const useBookReview = () => {
 	const history = useHistory();
 	const { authToken } = useContext(AuthContext);
 	const { showMessage } = useMessage();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
-	const createPost = async (data: BookType) => {
+	const createBookReview = async (data: BookType) => {
 		const { title, url, detail, review } = data;
 		setIsLoading(true);
 		await axios
@@ -40,7 +41,7 @@ export const useBook = () => {
 			.finally(() => setIsLoading(false));
 	};
 
-	const editPost = async (data: BookType) => {
+	const editBookReview = async (data: EditBookReviewType) => {
 		const { id, title, url, detail, review } = data;
 		await axios
 			.put(
@@ -62,7 +63,6 @@ export const useBook = () => {
 					title: `レビュー内容を変更しました`,
 					status: 'info',
 				});
-				history.push(`/edit/${id}`);
 				return;
 			})
 			.catch((error) => {
@@ -72,7 +72,7 @@ export const useBook = () => {
 			.finally(() => setIsLoading(false));
 	};
 
-	const deletePost = async (id: string) => {
+	const deleteBookReview = async (id: string) => {
 		setIsLoading(true);
 		await axios
 			.delete(
@@ -92,5 +92,5 @@ export const useBook = () => {
 			.finally(() => setIsLoading(false));
 	};
 
-	return { isLoading, createPost, editPost, deletePost };
+	return { isLoading, createBookReview, editBookReview, deleteBookReview };
 };
