@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
-import CreateReviewForm from '../Form/CreateReviewForm';
+import CreateBookReviewForm from '../Form/CreateBookReviewForm';
 
-const CreateReview: React.VFC = () => {
+const CreateBookReview: React.VFC = () => {
 	return (
 		<>
 			<Text
@@ -14,9 +14,9 @@ const CreateReview: React.VFC = () => {
 				レビュー作成画面
 			</Text>
 
-			<CreateReviewForm />
+			<CreateBookReviewForm />
 		</>
 	);
 };
 
-export default CreateReview;
+export default CreateBookReview;
