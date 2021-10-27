@@ -8,11 +8,11 @@ import {
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { BookType } from '../BookCard/type';
-import { useBook } from '../../hooks/useBook';
+import { useBookReview } from '../../hooks/useBookReview';
 import Btn from '../Button';
 
-const CreateReviewForm: React.VFC = () => {
-	const { isLoading, createPost } = useBook();
+const CreateBookForm: React.VFC = () => {
+	const { isLoading, createBookReview } = useBookReview();
 	const {
 		register,
 		handleSubmit,
@@ -21,7 +21,7 @@ const CreateReviewForm: React.VFC = () => {
 	} = useForm({ mode: 'onBlur' });
 
 	const onSubmit = (data: BookType) => {
-		createPost(data);
+		createBookReview(data);
 		reset();
 	};
 	return (
@@ -92,4 +92,4 @@ const CreateReviewForm: React.VFC = () => {
 	);
 };
 
-export default CreateReviewForm;
+export default CreateBookForm;
