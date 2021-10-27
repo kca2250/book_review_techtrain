@@ -4,6 +4,7 @@ import {
 	FormLabel,
 	Input,
 	SimpleGrid,
+	Textarea,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -43,17 +44,8 @@ const CreateBookForm: React.VFC = () => {
 								required: '必須の項目です',
 							})}
 						/>
-						<Input
-							role='form'
-							id='name'
-							autoComplete='off'
-							variant='filled'
-							placeholder='書籍リンク'
-							{...register('url', {
-								required: '必須の項目です',
-							})}
-						/>
-						<Input
+
+						<Textarea
 							role='form'
 							id='name'
 							autoComplete='off'
@@ -63,13 +55,24 @@ const CreateBookForm: React.VFC = () => {
 								required: '必須の項目です',
 							})}
 						/>
-						<Input
+						<Textarea
 							role='form'
 							id='name'
 							autoComplete='off'
 							variant='filled'
 							placeholder='レビュー内容'
 							{...register('review', {
+								required: '必須の項目です',
+							})}
+						/>
+
+						<Input
+							role='form'
+							id='name'
+							autoComplete='off'
+							variant='filled'
+							placeholder='書籍リンク'
+							{...register('url', {
 								required: '必須の項目です',
 							})}
 						/>

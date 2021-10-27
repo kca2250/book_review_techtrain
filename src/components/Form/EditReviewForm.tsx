@@ -3,7 +3,7 @@ import Btn from '../Button';
 import axios from 'axios';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Box, SimpleGrid } from '@chakra-ui/layout';
-import { FormErrorMessage, Input, Progress } from '@chakra-ui/react';
+import { FormErrorMessage, Input, Progress, Textarea } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { BookType } from '../BookCard/type';
 import { useHistory, useParams } from 'react-router';
@@ -74,8 +74,8 @@ const EditReviewForm: React.VFC = () => {
 									role='form'
 									id='name'
 									autoComplete='off'
-									variant='filled'
 									placeholder={apiData?.title}
+									value={apiData?.title}
 									{...register('title', {
 										required: '必須の項目です',
 									})}
@@ -84,12 +84,11 @@ const EditReviewForm: React.VFC = () => {
 
 							<Box>
 								<FormLabel>詳細</FormLabel>
-								<Input
+								<Textarea
 									role='form'
 									id='name'
-									autoComplete='off'
-									variant='filled'
 									placeholder={apiData?.detail}
+									value={apiData?.detail}
 									{...register('detail', {
 										required: '必須の項目です',
 									})}
@@ -97,12 +96,13 @@ const EditReviewForm: React.VFC = () => {
 							</Box>
 							<Box>
 								<FormLabel>レビュー内容</FormLabel>
-								<Input
+								<Textarea
 									role='form'
 									id='name'
 									autoComplete='off'
 									variant='filled'
 									placeholder={apiData?.review}
+									value={apiData?.review}
 									{...register('review', {
 										required: '必須の項目です',
 									})}
@@ -117,6 +117,7 @@ const EditReviewForm: React.VFC = () => {
 									autoComplete='off'
 									variant='filled'
 									placeholder={apiData?.url}
+									value={apiData?.url}
 									{...register('url', {
 										required: '必須の項目です',
 									})}
